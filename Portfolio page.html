@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jarrud Cochrane · Data & AI</title>
+<meta name="description" content="Jarrud Cochrane. Final-year Computer & Information Sciences student. Data, cloud & AI.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0A0D12;
+    --bg-panel:#12161E;
+    --ink:#E9EDF2;
+    --ink-soft:#8A96A5;
+    --line:rgba(233,237,242,0.10);
+    --line-strong:rgba(233,237,242,0.20);
+    --accent:#7C93FF;
+    --accent-dim:rgba(124,147,255,0.14);
+    --gold:#F0B95E;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(ellipse 900px 500px at 12% -8%, rgba(124,147,255,0.16), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 100% 30%, rgba(240,185,94,0.06), transparent 55%),
+      var(--bg);
+    background-attachment:fixed;
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    font-size:16px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+    position:relative;
+  }
+  body::before{
+    content:'';
+    position:fixed;
+    inset:0;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size:64px 64px;
+    -webkit-mask-image:radial-gradient(ellipse 1200px 800px at 15% 0%, black, transparent 70%);
+    mask-image:radial-gradient(ellipse 1200px 800px at 15% 0%, black, transparent 70%);
+    opacity:0.5;
+    pointer-events:none;
+    z-index:0;
+  }
+  h1,h2,h3{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:500;
+    margin:0;
+    color:var(--ink);
+  }
+  .mono{font-family:'JetBrains Mono', monospace;}
+  a{color:var(--accent); text-decoration:none;}
+  a:hover{color:#A7B7FF;}
+  a:focus-visible, button:focus-visible{outline:2px solid var(--accent); outline-offset:3px;}
+  .wrap{
+    max-width:1180px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:340px 1fr;
+    gap:0;
+    position:relative;
+    z-index:1;
+  }
+  /* ---- Left column ---- */
+  aside{
+    padding:64px 40px 64px 8px;
+    position:sticky;
+    top:0;
+    align-self:start;
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+  }
+  .name-block{position:relative;}
+  .name-block::before{
+    content:'';
+    position:absolute;
+    left:-60px; top:-40px;
+    width:220px; height:220px;
+    background:radial-gradient(circle, var(--accent-dim), transparent 70%);
+    filter:blur(10px);
+    z-index:-1;
+    animation:glow-in 1.6s ease-out;
+  }
+  @keyframes glow-in{
+    from{opacity:0; transform:scale(0.7);}
+    to{opacity:1; transform:scale(1);}
+  }
+  .name-block h1{
+    font-size:2.6rem;
+    line-height:1.06;
+    letter-spacing:-0.015em;
+    font-weight:600;
+    animation:rise-in .7s cubic-bezier(.2,.8,.2,1) both;
+  }
+  @keyframes rise-in{
+    from{opacity:0; transform:translateY(10px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+  .role{
+    margin-top:14px;
+    color:var(--accent);
+    font-size:1.02rem;
+    max-width:24ch;
+    font-family:'JetBrains Mono', monospace;
+    font-weight:400;
+  }
+  .loc{
+    margin-top:10px;
+    color:var(--ink-soft);
+    font-size:0.88rem;
+  }
+  nav{margin-top:48px;}
+  nav ul{list-style:none; margin:0; padding:0;}
+  nav li{margin-bottom:4px;}
+  nav a{
+    color:var(--ink-soft);
+    font-size:0.92rem;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:7px 4px;
+    border-radius:4px;
+    transition:color .15s ease, background .15s ease;
+  }
+  nav a::before{
+    content:'';
+    width:5px; height:1px;
+    background:var(--ink-soft);
+    transition:width .18s ease, background .18s ease;
+  }
+  nav a:hover, nav a.active{
+    color:var(--ink);
+  }
+  nav a:hover::before, nav a.active::before{
+    width:16px;
+    background:var(--accent);
+  }
+  nav a.active{background:var(--accent-dim);}
+  .contact-block{font-size:0.86rem; color:var(--ink-soft);}
+  .contact-block a{
+    display:block;
+    margin-bottom:8px;
+    color:var(--ink-soft);
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.82rem;
+  }
+  .contact-block a:hover{color:var(--accent);}
+  .badge{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    margin-top:20px;
+    font-size:0.75rem;
+    color:var(--gold);
+    border:1px solid rgba(240,185,94,0.35);
+    background:rgba(240,185,94,0.07);
+    border-radius:100px;
+    padding:5px 12px 5px 10px;
+  }
+  .badge::before{
+    content:'';
+    width:6px; height:6px;
+    border-radius:50%;
+    background:var(--gold);
+    box-shadow:0 0 8px var(--gold);
+  }
+
+  /* ---- Right column ---- */
+  main{padding:100px 24px 120px 56px; border-left:1px solid var(--line);}
+  section{margin-bottom:96px; scroll-margin-top:40px;}
+  section:last-of-type{margin-bottom:60px;}
+  .section-head{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.78rem;
+    color:var(--accent);
+    letter-spacing:0.02em;
+    margin-bottom:22px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .section-head::after{
+    content:'';
+    flex:1;
+    height:1px;
+    background:var(--line);
+  }
+  .lede{
+    font-size:1.28rem;
+    line-height:1.5;
+    max-width:56ch;
+    color:var(--ink);
+  }
+  .lede em{
+    font-style:normal;
+    color:var(--accent);
+    border-bottom:1px solid var(--accent);
+  }
+  p.body-text{
+    max-width:62ch;
+    color:var(--ink-soft);
+    font-size:1rem;
+  }
+
+  /* timeline */
+  .timeline{border-left:1px solid var(--line); margin-left:4px;}
+  .titem{position:relative; padding:0 0 40px 32px;}
+  .titem:last-child{padding-bottom:0;}
+  .titem::before{
+    content:'';
+    position:absolute;
+    left:-5px; top:6px;
+    width:9px; height:9px;
+    border-radius:50%;
+    background:var(--bg);
+    border:2px solid var(--accent);
+    box-shadow:0 0 0 4px var(--accent-dim);
+  }
+  .titem .when{font-family:'JetBrains Mono', monospace; font-size:0.8rem; color:var(--accent); margin-bottom:4px;}
+  .titem h3{font-size:1.18rem; font-weight:500;}
+  .titem .org{color:var(--ink-soft); font-size:0.94rem; margin-top:2px; margin-bottom:10px;}
+  .titem ul{margin:0; padding-left:18px; color:var(--ink-soft); font-size:0.96rem;}
+  .titem li{margin-bottom:6px;}
+
+  /* projects */
+  .project{
+    background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:28px;
+    margin-bottom:20px;
+    display:grid;
+    grid-template-columns:1fr 1.4fr;
+    gap:28px;
+    align-items:start;
+    transition:border-color .2s ease, background .2s ease;
+  }
+  .project:hover{border-color:var(--line-strong); background:linear-gradient(180deg, var(--accent-dim), transparent);}
+  .project:last-child{margin-bottom:0;}
+  .project h3{font-size:1.2rem; font-weight:500; margin-bottom:8px;}
+  .project .status{font-family:'JetBrains Mono', monospace; font-size:0.76rem; color:var(--gold); margin-bottom:10px;}
+  .project p{margin:0; color:var(--ink-soft); font-size:0.95rem;}
+  .project .stack{
+    margin-top:14px;
+    font-size:0.78rem;
+    color:var(--ink-soft);
+  }
+  .project .stack span{
+    display:inline-block;
+    font-family:'JetBrains Mono', monospace;
+    border:1px solid var(--line-strong);
+    border-radius:4px;
+    padding:3px 9px;
+    margin:0 6px 6px 0;
+  }
+  .project a.link{
+    display:inline-block;
+    margin-top:14px;
+    font-size:0.9rem;
+    color:var(--accent);
+    border-bottom:1px solid transparent;
+  }
+  .project a.link:hover{border-bottom-color:var(--accent);}
+
+  /* skills */
+  .skills-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+    border-radius:10px;
+    overflow:hidden;
+  }
+  .skill-group{background:var(--bg-panel); padding:22px 24px;}
+  .skill-group h3{font-size:0.98rem; font-weight:600; color:var(--ink); margin-bottom:10px;}
+  .skill-group p{margin:0; color:var(--ink-soft); font-size:0.92rem; line-height:1.7;}
+
+  /* certifications */
+  .cert{
+    border-top:1px solid var(--line);
+    padding:20px 0;
+    display:grid;
+    grid-template-columns:1fr auto;
+    gap:12px;
+    align-items:baseline;
+  }
+  .cert:last-child{border-bottom:1px solid var(--line);}
+  .cert h3{font-size:1.02rem; font-weight:500;}
+  .cert .issuer{color:var(--accent); font-size:0.88rem;}
+  .cert .when{font-family:'JetBrains Mono', monospace; color:var(--ink-soft); font-size:0.8rem; white-space:nowrap;}
+  .cert p{grid-column:1 / -1; margin:6px 0 0; color:var(--ink-soft); font-size:0.9rem; max-width:60ch;}
+
+  footer{
+    padding:40px 24px 60px 56px;
+    border-left:1px solid var(--line);
+    border-top:1px solid var(--line);
+    color:var(--ink-soft);
+    font-size:0.84rem;
+    font-family:'JetBrains Mono', monospace;
+    position:relative;
+    z-index:1;
+  }
+
+  ::selection{background:var(--accent-dim); color:var(--ink);}
+
+  @media (max-width:880px){
+    .wrap{grid-template-columns:1fr;}
+    aside{position:relative; height:auto; padding:40px 24px 20px; border-bottom:1px solid var(--line);}
+    main{border-left:none; padding:56px 24px 100px;}
+    footer{border-left:none; padding:32px 24px 48px;}
+    .project{grid-template-columns:1fr;}
+    .skills-grid{grid-template-columns:1fr;}
+    nav{margin-top:28px;}
+    .name-block h1{font-size:2.1rem;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    .name-block::before, .name-block h1{animation:none;}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <aside>
+    <div>
+      <div class="name-block">
+        <h1>Jarrud<br>Cochrane</h1>
+        <p class="role">Final-year Computer & Information Sciences student, Data & AI</p>
+        <p class="loc">Durban, South Africa</p>
+        <span class="badge">Golden Key Honour Society</span>
+      </div>
+      <nav aria-label="Section navigation">
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#education">Education</a></li>
+          <li><a href="#certifications">Certifications</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="contact-block">
+      <a href="mailto:jarrudcochrane03@gmail.com">jarrudcochrane03@gmail.com</a>
+      <a href="tel:0606017461">060 601 7461</a>
+      <a href="https://www.linkedin.com/in/jarrud-cochrane-a0320a368" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/jarrudcochrane" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </aside>
+
+  <main>
+    <section id="about">
+      <p class="section-head">About</p>
+      <p class="lede">I work at the point where <em>clean data</em> meets <em>working software</em>, capturing it, validating it, and building the tools that make sense of it.</p>
+      <p class="body-text" style="margin-top:24px;">
+        I'm in my final year of a Computer and Information Sciences degree, with hands-on experience handling sensitive financial and asset data professionally, and a growing focus on Python-based analysis and applied AI. My background spans structured data work in real organisations and full-stack development across web and mobile, and I'm looking to bring both into a Data and AI internship.
+      </p>
+    </section>
+
+    <section id="experience">
+      <p class="section-head">Experience</p>
+      <div class="timeline">
+        <div class="titem">
+          <p class="when">Jun 2026 to Aug 2026</p>
+          <h3>Junior Data Analyst Intern</h3>
+          <p class="org">UBUNTU Business Advisory & Consulting (PTY) LTD · Hardcat Asset Management System</p>
+          <ul>
+            <li>Supported data management processes within the Hardcat IT Asset Management System, maintaining accurate organisational records.</li>
+            <li>Gained hands-on exposure to structured data handling, reporting and quality control within a business advisory environment.</li>
+          </ul>
+        </div>
+        <div class="titem">
+          <p class="when">Mar 2025 to Aug 2025</p>
+          <h3>Data Assistant</h3>
+          <p class="org">JLS FMS, Durban</p>
+          <ul>
+            <li>Captured, cleaned and validated hospital-related financial datasets in Excel, ensuring accuracy and confidentiality of sensitive records.</li>
+            <li>Communicated with project managers to prepare, clean and validate data ahead of audits and financial reports.</li>
+            <li>Redesigned spreadsheet layouts to improve clarity and review efficiency.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <p class="section-head">Projects</p>
+
+      <div class="project">
+        <div>
+          <h3>Golf Performance Tracker</h3>
+          <p class="status">Personal project · Public on GitHub</p>
+        </div>
+        <div>
+          <p>A Python analytics tool built on personal round data, applying rolling averages, linear regression trend projection and correlation analysis to identify which factors most affect scoring. Shipped as both a console reporting script and an interactive Streamlit dashboard with live filtering, KPI cards and round-logging.</p>
+          <div class="stack"><span>Python</span><span>Pandas</span><span>Streamlit</span><span>Regression</span></div>
+          <a class="link" href="https://github.com/jarrudcochrane" target="_blank" rel="noopener">View on GitHub →</a>
+        </div>
+      </div>
+
+      <div class="project">
+        <div>
+          <h3>Client Fuel & Petrol Delivery Platform</h3>
+          <p class="status">In development, 2026 · Team of 4+</p>
+        </div>
+        <div>
+          <p>Collaborating as a full-stack developer on a client-commissioned, on-demand fuel delivery platform connecting consumers and truck drivers with nearby fuel suppliers. Working directly with the client during requirements and system design to shape functionality and technical architecture.</p>
+          <div class="stack"><span>Full-stack</span><span>Client project</span><span>System design</span></div>
+        </div>
+      </div>
+
+      <div class="project">
+        <div>
+          <h3>Global Logistics Management System</h3>
+          <p class="status">Academic project</p>
+        </div>
+        <div>
+          <p>An ASP.NET Core MVC application for a logistics company to manage clients, contracts and service requests, including live USD-to-ZAR currency conversion. Applied Factory, Strategy and Observer design patterns, covered by 8 NUnit unit tests and an automated GitHub Actions CI pipeline.</p>
+          <div class="stack"><span>ASP.NET Core MVC</span><span>NUnit</span><span>GitHub Actions</span></div>
+        </div>
+      </div>
+
+      <div class="project">
+        <div>
+          <h3>Budget Budz</h3>
+          <p class="status">Group project · Team of 5</p>
+        </div>
+        <div>
+          <p>An offline-first Android budgeting app with local Room database storage, Firebase Firestore cloud sync and Supabase receipt image storage. Built expense tracking, category budgeting and spending-graph analytics, plus a gamification system (XP, streaks, unlockable content) to drive engagement.</p>
+          <div class="stack"><span>Android</span><span>Room</span><span>Firebase</span><span>Supabase</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <p class="section-head">Skills</p>
+      <div class="skills-grid">
+        <div class="skill-group">
+          <h3>Data & Analysis</h3>
+          <p>Python (NumPy, Pandas, Matplotlib, Seaborn), R, SQL, SQL Server Management Studio, Tableau, Excel data cleaning & validation, exploratory data analysis.</p>
+        </div>
+        <div class="skill-group">
+          <h3>Programming</h3>
+          <p>Python, C#, Java, ASP.NET MVC, HTML, CSS, REST API integration.</p>
+        </div>
+        <div class="skill-group">
+          <h3>Cloud & Database</h3>
+          <p>Azure App Services, Azure Blob Storage, Azure Portal.</p>
+        </div>
+        <div class="skill-group">
+          <h3>AI Tools</h3>
+          <p>Generative AI tools, prompt engineering, responsible AI use.</p>
+        </div>
+        <div class="skill-group">
+          <h3>Tools</h3>
+          <p>Git, GitHub, Visual Studio, VS Code, Android Studio.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="education">
+      <p class="section-head">Education</p>
+      <div class="timeline">
+        <div class="titem">
+          <p class="when">2024 to 2026 (expected)</p>
+          <h3>Bachelor of Computer and Information Sciences</h3>
+          <p class="org">Emeris (previously Varsity College), Durban · Application Development</p>
+          <ul>
+            <li>Invited, Golden Key International Honour Society (2025 to present), awarded to top-performing students.</li>
+            <li>Latest Year 3 results: Programming 3A 96%, Introduction to Research for ICT 93%, Programming 3C 93%, Information Systems 3A 90% (all Pass with Distinction).</li>
+          </ul>
+        </div>
+        <div class="titem">
+          <p class="when">Jan to Dec 2023</p>
+          <h3>Higher Certificate in Mobile Application and Web Development</h3>
+          <p class="org">Emeris (previously Varsity College), Top Graduate 2023, First in Class</p>
+        </div>
+        <div class="titem">
+          <p class="when">Dec 2022</p>
+          <h3>National Senior Certificate</h3>
+          <p class="org">St Henry's Marist College, Durban, Bachelor's Pass</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="certifications">
+      <p class="section-head">Certifications</p>
+
+      <div class="cert">
+        <div>
+          <h3>Data Analysis with Python</h3>
+          <p class="org issuer">freeCodeCamp</p>
+          <p>Five projects applying NumPy, Pandas, Matplotlib and Seaborn to clean, analyse and visualise real-world datasets across CSV/SQL sources.</p>
+        </div>
+        <p class="when">Aug 2026</p>
+      </div>
+
+      <div class="cert">
+        <div>
+          <h3>Google Data Analytics Professional Certificate</h3>
+          <p class="org issuer">Google</p>
+          <p>Eight-course programme covering data cleaning, analysis and visualisation with spreadsheets, SQL, R and Tableau.</p>
+        </div>
+        <p class="when">Aug 2026</p>
+      </div>
+
+      <div class="cert">
+        <div>
+          <h3>Google AI Essentials Specialization</h3>
+          <p class="org issuer">Google</p>
+          <p>Practical use of generative AI tools, prompt writing, and responsible AI use.</p>
+        </div>
+        <p class="when">Aug 2026</p>
+      </div>
+
+      <div class="cert">
+        <div>
+          <h3>Microsoft Azure Fundamentals (AZ-900) Exam Prep</h3>
+          <p class="org issuer">Microsoft</p>
+          <p>Core cloud concepts and Azure services: compute, storage, networking and security.</p>
+        </div>
+        <p class="when">Aug 2026</p>
+      </div>
+
+      <div class="cert">
+        <div>
+          <h3>SC-900: Security, Compliance & Identity Fundamentals</h3>
+          <p class="org issuer">Whizlabs</p>
+          <p>Microsoft security, compliance and identity fundamentals: access management, Zero Trust and threat protection.</p>
+        </div>
+        <p class="when">Aug 2026</p>
+      </div>
+
+      <div class="cert">
+        <div>
+          <h3>Google Project Management Professional Certificate</h3>
+          <p class="org issuer">Google</p>
+          <p>Project planning, Agile methodologies, budgeting and stakeholder communication.</p>
+        </div>
+        <p class="when">Aug 2026</p>
+      </div>
+    </section>
+  </main>
+</div>
+
+<footer>
+  Durban, South Africa | jarrudcochrane03@gmail.com | 060 601 7461
+</footer>
+
+<script>
+  // Highlight active nav section on scroll
+  const sections = document.querySelectorAll('main section');
+  const navLinks = document.querySelectorAll('nav a');
+  const setActive = () => {
+    let current = sections[0].id;
+    sections.forEach(sec => {
+      if (window.scrollY >= sec.offsetTop - 120) current = sec.id;
+    });
+    navLinks.forEach(link => {
+      link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+    });
+  };
+  window.addEventListener('scroll', setActive, { passive: true });
+  setActive();
+</script>
+
+</body>
+</html>
