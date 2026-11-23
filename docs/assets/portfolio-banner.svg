@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 300" role="img" aria-label="Jarrud Cochrane portfolio banner">
+  <rect width="1200" height="300" fill="#13212C"/>
+  <rect x="60" y="60" width="300" height="180" rx="14" fill="#fff"/>
+  <g font-family="monospace" font-size="15" fill="#13212C">
+    <text x="82" y="100">durban   3/8/2026   R 1 200</text>
+    <rect x="76" y="120" width="268" height="26" rx="4" fill="#FBEBC8"/>
+    <text x="82" y="138">Durban   2026-08-03   1200.00</text>
+    <text x="82" y="176" fill="#9BAAB5">Durban   2026-08-03   1200.00</text>
+    <line x1="80" y1="171" x2="330" y2="171" stroke="#9BAAB5"/>
+    <rect x="76" y="196" width="268" height="26" rx="4" fill="#13212C"/>
+    <text x="82" y="214" fill="#fff">Durban   2026-08-05   review</text>
+  </g>
+  <text x="430" y="130" font-family="Arial, Helvetica, sans-serif" font-weight="800" font-size="52" fill="#F2F5F7">Jarrud Cochrane</text>
+  <text x="430" y="180" font-family="Arial, Helvetica, sans-serif" font-size="26" fill="#B8C6D0">Data analysis and software projects</text>
+  <rect x="430" y="205" width="150" height="6" rx="3" fill="#F0B03A"/>
+</svg>

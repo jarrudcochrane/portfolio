@@ -1,580 +1,314 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jarrud Cochrane · Data & AI</title>
-<meta name="description" content="Jarrud Cochrane. Final-year Computer & Information Sciences student. Data, cloud & AI.">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jarrud Cochrane | Full-stack developer</title>
+<meta name="description" content="Jarrud Cochrane, full-stack developer in Durban with a Bachelor of Computer and Information Sciences (Application Development). C#, ASP.NET, Python, Android and data work.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Figtree:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --bg:#0A0D12;
-    --bg-panel:#12161E;
-    --ink:#E9EDF2;
-    --ink-soft:#8A96A5;
-    --line:rgba(233,237,242,0.10);
-    --line-strong:rgba(233,237,242,0.20);
-    --accent:#7C93FF;
-    --accent-dim:rgba(124,147,255,0.14);
-    --gold:#F0B95E;
-  }
-  *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{
-    margin:0;
-    background:
-      radial-gradient(ellipse 900px 500px at 12% -8%, rgba(124,147,255,0.16), transparent 60%),
-      radial-gradient(ellipse 700px 500px at 100% 30%, rgba(240,185,94,0.06), transparent 55%),
-      var(--bg);
-    background-attachment:fixed;
-    color:var(--ink);
-    font-family:'Inter', sans-serif;
-    font-size:16px;
-    line-height:1.65;
-    -webkit-font-smoothing:antialiased;
-    position:relative;
-  }
-  body::before{
-    content:'';
-    position:fixed;
-    inset:0;
-    background-image:
-      linear-gradient(var(--line) 1px, transparent 1px),
-      linear-gradient(90deg, var(--line) 1px, transparent 1px);
-    background-size:64px 64px;
-    -webkit-mask-image:radial-gradient(ellipse 1200px 800px at 15% 0%, black, transparent 70%);
-    mask-image:radial-gradient(ellipse 1200px 800px at 15% 0%, black, transparent 70%);
-    opacity:0.5;
-    pointer-events:none;
-    z-index:0;
-  }
-  h1,h2,h3{
-    font-family:'Space Grotesk', sans-serif;
-    font-weight:500;
-    margin:0;
-    color:var(--ink);
-  }
-  .mono{font-family:'JetBrains Mono', monospace;}
-  a{color:var(--accent); text-decoration:none;}
-  a:hover{color:#A7B7FF;}
-  a:focus-visible, button:focus-visible{outline:2px solid var(--accent); outline-offset:3px;}
-  .wrap{
-    max-width:1180px;
-    margin:0 auto;
-    display:grid;
-    grid-template-columns:340px 1fr;
-    gap:0;
-    position:relative;
-    z-index:1;
-  }
-  /* ---- Left column ---- */
-  aside{
-    padding:64px 40px 64px 8px;
-    position:sticky;
-    top:0;
-    align-self:start;
-    height:100vh;
-    display:flex;
-    flex-direction:column;
-    justify-content:space-between;
-  }
-  .name-block{position:relative;}
-  .name-block::before{
-    content:'';
-    position:absolute;
-    left:-60px; top:-40px;
-    width:220px; height:220px;
-    background:radial-gradient(circle, var(--accent-dim), transparent 70%);
-    filter:blur(10px);
-    z-index:-1;
-    animation:glow-in 1.6s ease-out;
-  }
-  @keyframes glow-in{
-    from{opacity:0; transform:scale(0.7);}
-    to{opacity:1; transform:scale(1);}
-  }
-  .name-block h1{
-    font-size:2.6rem;
-    line-height:1.06;
-    letter-spacing:-0.015em;
-    font-weight:600;
-    animation:rise-in .7s cubic-bezier(.2,.8,.2,1) both;
-  }
-  @keyframes rise-in{
-    from{opacity:0; transform:translateY(10px);}
-    to{opacity:1; transform:translateY(0);}
-  }
-  .role{
-    margin-top:14px;
-    color:var(--accent);
-    font-size:1.02rem;
-    max-width:24ch;
-    font-family:'JetBrains Mono', monospace;
-    font-weight:400;
-  }
-  .loc{
-    margin-top:10px;
-    color:var(--ink-soft);
-    font-size:0.88rem;
-  }
-  nav{margin-top:48px;}
-  nav ul{list-style:none; margin:0; padding:0;}
-  nav li{margin-bottom:4px;}
-  nav a{
-    color:var(--ink-soft);
-    font-size:0.92rem;
-    display:flex;
-    align-items:center;
-    gap:10px;
-    padding:7px 4px;
-    border-radius:4px;
-    transition:color .15s ease, background .15s ease;
-  }
-  nav a::before{
-    content:'';
-    width:5px; height:1px;
-    background:var(--ink-soft);
-    transition:width .18s ease, background .18s ease;
-  }
-  nav a:hover, nav a.active{
-    color:var(--ink);
-  }
-  nav a:hover::before, nav a.active::before{
-    width:16px;
-    background:var(--accent);
-  }
-  nav a.active{background:var(--accent-dim);}
-  .contact-block{font-size:0.86rem; color:var(--ink-soft);}
-  .contact-block a{
-    display:block;
-    margin-bottom:8px;
-    color:var(--ink-soft);
-    font-family:'JetBrains Mono', monospace;
-    font-size:0.82rem;
-  }
-  .contact-block a:hover{color:var(--accent);}
-  .badge{
-    display:inline-flex;
-    align-items:center;
-    gap:6px;
-    margin-top:20px;
-    font-size:0.75rem;
-    color:var(--gold);
-    border:1px solid rgba(240,185,94,0.35);
-    background:rgba(240,185,94,0.07);
-    border-radius:100px;
-    padding:5px 12px 5px 10px;
-  }
-  .badge::before{
-    content:'';
-    width:6px; height:6px;
-    border-radius:50%;
-    background:var(--gold);
-    box-shadow:0 0 8px var(--gold);
-  }
+:root{
+  --paper:#F2F5F7; --white:#fff; --ink:#13212C; --muted:#52636F; --line:#D3DCE2;
+  --sea:#0E6F7A; --sea-dark:#0A4F58; --sun:#F0B03A; --sun-soft:#FBEBC8;
+  --display:'Bricolage Grotesque',system-ui,sans-serif; --body:'Figtree',system-ui,sans-serif; --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{background:var(--paper);color:var(--ink);font:400 17px/1.6 var(--body);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--sea);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 28px}
 
-  /* ---- Right column ---- */
-  main{padding:100px 24px 120px 56px; border-left:1px solid var(--line);}
-  section{margin-bottom:96px; scroll-margin-top:40px;}
-  section:last-of-type{margin-bottom:60px;}
-  .section-head{
-    font-family:'JetBrains Mono', monospace;
-    font-size:0.78rem;
-    color:var(--accent);
-    letter-spacing:0.02em;
-    margin-bottom:22px;
-    display:flex;
-    align-items:center;
-    gap:10px;
-  }
-  .section-head::after{
-    content:'';
-    flex:1;
-    height:1px;
-    background:var(--line);
-  }
-  .lede{
-    font-size:1.28rem;
-    line-height:1.5;
-    max-width:56ch;
-    color:var(--ink);
-  }
-  .lede em{
-    font-style:normal;
-    color:var(--accent);
-    border-bottom:1px solid var(--accent);
-  }
-  p.body-text{
-    max-width:62ch;
-    color:var(--ink-soft);
-    font-size:1rem;
-  }
+/* nav */
+header.top{position:sticky;top:0;z-index:5;background:rgba(242,245,247,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+.logo{white-space:nowrap;font:800 19px var(--display);text-decoration:none;letter-spacing:-.01em}
+nav ul{display:flex;gap:26px;list-style:none;padding:0}
+nav a{text-decoration:none;font-weight:500;font-size:15px;color:var(--muted)}
+nav a:hover{color:var(--sea)}
 
-  /* timeline */
-  .timeline{border-left:1px solid var(--line); margin-left:4px;}
-  .titem{position:relative; padding:0 0 40px 32px;}
-  .titem:last-child{padding-bottom:0;}
-  .titem::before{
-    content:'';
-    position:absolute;
-    left:-5px; top:6px;
-    width:9px; height:9px;
-    border-radius:50%;
-    background:var(--bg);
-    border:2px solid var(--accent);
-    box-shadow:0 0 0 4px var(--accent-dim);
-  }
-  .titem .when{font-family:'JetBrains Mono', monospace; font-size:0.8rem; color:var(--accent); margin-bottom:4px;}
-  .titem h3{font-size:1.18rem; font-weight:500;}
-  .titem .org{color:var(--ink-soft); font-size:0.94rem; margin-top:2px; margin-bottom:10px;}
-  .titem ul{margin:0; padding-left:18px; color:var(--ink-soft); font-size:0.96rem;}
-  .titem li{margin-bottom:6px;}
+/* hero */
+.hero{padding:76px 0 84px}
+.hero .wrap{display:grid;grid-template-columns:1.05fr 1fr;gap:56px;align-items:center}
+.hero h1{font:800 clamp(40px,5.6vw,68px)/1.02 var(--display);letter-spacing:-.03em;font-variation-settings:'opsz' 96}
+.hero p.lede{margin-top:24px;font-size:19px;color:var(--muted);max-width:30em}
+.cta{display:flex;gap:12px;margin-top:32px;flex-wrap:wrap}
+.btn{display:inline-block;padding:12px 22px;border-radius:999px;font-weight:600;text-decoration:none;border:2px solid var(--ink);font-size:15px}
+.btn.primary{background:var(--ink);color:var(--paper)}
+.btn.primary:hover{background:var(--sea-dark);border-color:var(--sea-dark)}
+.btn.ghost:hover{background:var(--white)}
+.where{margin-top:26px;font-size:15px;color:var(--muted)}
 
-  /* projects */
-  .project{
-    background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
-    border:1px solid var(--line);
-    border-radius:10px;
-    padding:28px;
-    margin-bottom:20px;
-    display:grid;
-    grid-template-columns:1fr 1.4fr;
-    gap:28px;
-    align-items:start;
-    transition:border-color .2s ease, background .2s ease;
-  }
-  .project:hover{border-color:var(--line-strong); background:linear-gradient(180deg, var(--accent-dim), transparent);}
-  .project:last-child{margin-bottom:0;}
-  .project h3{font-size:1.2rem; font-weight:500; margin-bottom:8px;}
-  .project .status{font-family:'JetBrains Mono', monospace; font-size:0.76rem; color:var(--gold); margin-bottom:10px;}
-  .project p{margin:0; color:var(--ink-soft); font-size:0.95rem;}
-  .project .stack{
-    margin-top:14px;
-    font-size:0.78rem;
-    color:var(--ink-soft);
-  }
-  .project .stack span{
-    display:inline-block;
-    font-family:'JetBrains Mono', monospace;
-    border:1px solid var(--line-strong);
-    border-radius:4px;
-    padding:3px 9px;
-    margin:0 6px 6px 0;
-  }
-  .project a.link{
-    display:inline-block;
-    margin-top:14px;
-    font-size:0.9rem;
-    color:var(--accent);
-    border-bottom:1px solid transparent;
-  }
-  .project a.link:hover{border-bottom-color:var(--accent);}
+/* the demo table */
+.demo{background:var(--white);border:1px solid var(--line);border-radius:14px;box-shadow:0 18px 40px -22px rgba(19,33,44,.35);overflow:hidden}
+.demo-bar{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line);font:500 13px var(--mono);color:var(--muted)}
+.demo button{font:600 13px var(--body);background:var(--sea);color:#fff;border:0;border-radius:999px;padding:7px 16px;cursor:pointer}
+.demo button:hover{background:var(--sea-dark)}
+table{width:100%;border-collapse:collapse;font:400 13.5px var(--mono)}
+th{font:500 12px var(--mono);text-align:left;padding:9px 14px;color:var(--muted);background:#F8FAFB;border-bottom:1px solid var(--line)}
+td{padding:11px 14px;border-bottom:1px solid #EAF0F3;white-space:pre;transition:background .4s,color .4s}
+tr:last-child td{border-bottom:0}
+td.fixed{background:var(--sun-soft)}
+td.flag{background:var(--ink);color:#fff}
+tr.dup.gone td{color:#9BAAB5;text-decoration:line-through;background:#F3F6F8}
+.demo-note{padding:12px 16px;border-top:1px solid var(--line);font-size:13.5px;color:var(--muted);min-height:3.2em}
 
-  /* skills */
-  .skills-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:1px;
-    background:var(--line);
-    border:1px solid var(--line);
-    border-radius:10px;
-    overflow:hidden;
-  }
-  .skill-group{background:var(--bg-panel); padding:22px 24px;}
-  .skill-group h3{font-size:0.98rem; font-weight:600; color:var(--ink); margin-bottom:10px;}
-  .skill-group p{margin:0; color:var(--ink-soft); font-size:0.92rem; line-height:1.7;}
+/* sections */
+section{padding:72px 0;border-top:1px solid var(--line)}
+.grid{display:grid;grid-template-columns:200px 1fr;gap:40px}
+.grid>h2{font:800 28px/1.1 var(--display);letter-spacing:-.02em}
+.about p{max-width:36em;font-size:19px}
+.about p+p{margin-top:16px;color:var(--muted);font-size:17px}
 
-  /* certifications */
-  .cert{
-    border-top:1px solid var(--line);
-    padding:20px 0;
-    display:grid;
-    grid-template-columns:1fr auto;
-    gap:12px;
-    align-items:baseline;
-  }
-  .cert:last-child{border-bottom:1px solid var(--line);}
-  .cert h3{font-size:1.02rem; font-weight:500;}
-  .cert .issuer{color:var(--accent); font-size:0.88rem;}
-  .cert .when{font-family:'JetBrains Mono', monospace; color:var(--ink-soft); font-size:0.8rem; white-space:nowrap;}
-  .cert p{grid-column:1 / -1; margin:6px 0 0; color:var(--ink-soft); font-size:0.9rem; max-width:60ch;}
+.job{display:grid;grid-template-columns:170px 1fr;gap:28px;padding:0 0 38px}
+.job+.job{padding-top:38px;border-top:1px dashed var(--line)}
+.job:last-child{padding-bottom:0}
+.when{font:500 13.5px/1.5 var(--mono);color:var(--muted);padding-top:6px}
+.job h3{font:600 21px/1.25 var(--display)}
+.org{color:var(--sea-dark);font-weight:500;margin-bottom:10px}
+.job ul{padding-left:20px;max-width:40em}
+.job li{margin-top:6px}
+.cert-btn{margin-top:16px;display:inline-flex;gap:10px;align-items:center;background:var(--white);border:1px solid var(--line);border-radius:10px;padding:8px 14px 8px 8px;font:500 14px var(--body);cursor:pointer;color:var(--ink)}
+.cert-btn:hover{border-color:var(--sea)}
+.cert-btn img{width:56px;height:40px;object-fit:cover;border-radius:4px}
 
-  footer{
-    padding:40px 24px 60px 56px;
-    border-left:1px solid var(--line);
-    border-top:1px solid var(--line);
-    color:var(--ink-soft);
-    font-size:0.84rem;
-    font-family:'JetBrains Mono', monospace;
-    position:relative;
-    z-index:1;
-  }
+.proj{padding:0 0 40px}
+.proj+.proj{padding-top:40px;border-top:1px dashed var(--line)}
+.proj:last-child{padding-bottom:0}
+.proj h3{font:800 clamp(24px,3vw,32px)/1.1 var(--display);letter-spacing:-.02em}
+.proj .meta{margin:6px 0 12px;color:var(--muted);font-size:15px}
+.proj p{max-width:38em}
+.stack{margin-top:12px;font:400 13.5px var(--mono);color:var(--sea-dark)}
+.proj .links{margin-top:14px;display:flex;gap:18px;font-weight:600;font-size:15px}
+.proj .links a{color:var(--sea-dark);text-underline-offset:4px}
 
-  ::selection{background:var(--accent-dim); color:var(--ink);}
+.skills{display:grid;grid-template-columns:150px 1fr;gap:12px 24px}
+.skills dt{font-weight:600}
+.skills dd{color:var(--muted)}
 
-  @media (max-width:880px){
-    .wrap{grid-template-columns:1fr;}
-    aside{position:relative; height:auto; padding:40px 24px 20px; border-bottom:1px solid var(--line);}
-    main{border-left:none; padding:56px 24px 100px;}
-    footer{border-left:none; padding:32px 24px 48px;}
-    .project{grid-template-columns:1fr;}
-    .skills-grid{grid-template-columns:1fr;}
-    nav{margin-top:28px;}
-    .name-block h1{font-size:2.1rem;}
-  }
+.edu h3{font:600 19px/1.3 var(--display)}
+.edu p{color:var(--muted);font-size:15.5px}
+.edu .item+.item{margin-top:22px}
+.certs{list-style:none;padding:0;margin-top:26px;border-top:1px solid var(--line)}
+.certs li{display:flex;justify-content:space-between;gap:20px;padding:12px 0;border-bottom:1px solid var(--line);font-size:16px}
+.certs span{color:var(--muted);font-size:14px;text-align:right}
 
-  @media (prefers-reduced-motion: reduce){
-    html{scroll-behavior:auto;}
-    .name-block::before, .name-block h1{animation:none;}
-  }
+.contact{background:var(--ink);color:var(--paper);border-top:0}
+.contact h2{font:800 clamp(34px,5vw,56px)/1.05 var(--display);letter-spacing:-.03em}
+.contact p{margin-top:14px;color:#B8C6D0;max-width:30em}
+.contact .rows{margin-top:30px;display:flex;gap:14px;flex-wrap:wrap}
+.contact .btn{border-color:var(--paper);color:var(--paper)}
+.contact .btn:hover{background:var(--paper);color:var(--ink)}
+.contact .btn.primary{background:var(--sun);border-color:var(--sun);color:var(--ink)}
+.contact :focus-visible{outline-color:var(--sun)}
+footer{background:var(--ink);color:#8FA1AE;padding:0 0 36px;font-size:14px}
+
+dialog{border:0;border-radius:12px;padding:0;max-width:min(900px,94vw);background:var(--white)}
+dialog::backdrop{background:rgba(19,33,44,.7)}
+dialog img{display:block;width:100%}
+dialog form{padding:10px 14px;text-align:right}
+dialog button{font:600 14px var(--body);border:0;background:var(--ink);color:#fff;padding:8px 18px;border-radius:999px;cursor:pointer}
+
+@media(max-width:860px){
+  table{font-size:12px}td,th{padding:10px 8px}
+  nav li:nth-child(n+3){display:none}
+  .hero .wrap{grid-template-columns:1fr;gap:40px}
+  .grid,.job{grid-template-columns:1fr;gap:14px}
+  .when{padding-top:0}
+  nav ul{gap:16px}
+  .skills{grid-template-columns:1fr;gap:2px}.skills dd{margin-bottom:12px}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
 <body>
+<header class="top"><div class="wrap">
+  <a class="logo" href="#top">Jarrud Cochrane</a>
+  <nav aria-label="Main"><ul>
+    <li><a href="#experience">Experience</a></li><li><a href="#projects">Projects</a></li><li><a href="#skills">Skills</a></li><li><a href="#education">Education</a></li><li><a href="#contact">Contact</a></li>
+  </ul></nav>
+</div></header>
 
-<div class="wrap">
-  <aside>
-    <div>
-      <div class="name-block">
-        <h1>Jarrud<br>Cochrane</h1>
-        <p class="role">Final-year Computer & Information Sciences student, Data & AI</p>
-        <p class="loc">Durban, South Africa</p>
-        <span class="badge">Golden Key Honour Society</span>
-      </div>
-      <nav aria-label="Section navigation">
+<main id="top">
+<section class="hero" style="border-top:0"><div class="wrap">
+  <div>
+    <h1>I build full&#8209;stack software, and the data work behind it.</h1>
+    <p class="lede">I study Computer and Information Sciences (Application Development) in Durban. I build web, mobile and data applications in C#, Python and Java, and I've worked with real business data in three roles.</p>
+    <div class="cta"><a class="btn primary" href="#projects">See my projects</a><a class="btn ghost" href="#contact">Get in touch</a></div>
+    <p class="where">Open to developer and software internships and entry-level roles.</p>
+  </div>
+  <div class="demo" aria-label="Example of cleaning a small table of messy data">
+    <div class="demo-bar"><span>orders.csv</span><button id="run" type="button">Clean it</button></div>
+    <table>
+      <thead><tr><th>client</th><th>city</th><th>date</th><th>amount</th></tr></thead>
+      <tbody>
+        <tr><td data-d="Mkhize Fuel " data-c="Mkhize Fuel"></td><td data-d="durban" data-c="Durban"></td><td data-d="3/8/2026" data-c="2026-08-03"></td><td data-d="R 1 200" data-c="1200.00"></td></tr>
+        <tr class="dup"><td data-d="Mkhize Fuel" data-c="Mkhize Fuel"></td><td data-d="Durban" data-c="Durban"></td><td data-d="2026-08-03" data-c="2026-08-03"></td><td data-d="1200.00" data-c="1200.00"></td></tr>
+        <tr><td data-d="Naidoo Stores" data-c="Naidoo Stores"></td><td data-d="DURBAN" data-c="Durban"></td><td data-d="04.08.2026" data-c="2026-08-04"></td><td data-d="R 860,50" data-c="860.50"></td></tr>
+        <tr><td data-d="Pillay &amp; Sons" data-c="Pillay &amp; Sons"></td><td data-d="Durbn" data-c="Durban"></td><td data-d="2026-08-05" data-c="2026-08-05"></td><td data-d="" data-c="review" data-flag="1"></td></tr>
+      </tbody>
+    </table>
+    <p class="demo-note" id="note" aria-live="polite">Four rows, four different problems.</p>
+  </div>
+</div></section>
+
+<section id="about"><div class="wrap grid about">
+  <h2>About</h2>
+  <div>
+    <p>I'm a full-stack developer. I build applications end to end: databases, back-end logic, web and Android front ends, tests and automated builds.</p>
+    <p>Alongside development I've worked with hospital financial data, IT asset records and retail sales analysis, so I know how messy real data is and how to make software that handles it. I'm looking for a developer role where I can use both.</p>
+  </div>
+</div></section>
+
+<section id="experience"><div class="wrap grid">
+  <h2>Experience</h2>
+  <div>
+    <article class="job">
+      <div class="when">Sep 2026 to Oct 2026</div>
+      <div>
+        <h3>Data Analysis Intern</h3>
+        <p class="org">NexAfrica</p>
         <ul>
-          <li><a href="#about">About</a></li>
-          <li><a href="#experience">Experience</a></li>
-          <li><a href="#projects">Projects</a></li>
-          <li><a href="#skills">Skills</a></li>
-          <li><a href="#education">Education</a></li>
-          <li><a href="#certifications">Certifications</a></li>
+          <li>Cleaned and prepared a retail sales dataset (missing values, duplicates, data types) and documented it in a data dictionary.</li>
+          <li>Calculated sales, profit, margin and average order value, and analysed performance by month, region, product and customer, including segmentation, cohort retention and discount-versus-profit.</li>
+          <li>Built an interactive four-page Excel dashboard and wrote an executive summary with recommendations for management.</li>
         </ul>
-      </nav>
-    </div>
-    <div class="contact-block">
-      <a href="mailto:jarrudcochrane03@gmail.com">jarrudcochrane03@gmail.com</a>
-      <a href="tel:0606017461">060 601 7461</a>
-      <a href="https://www.linkedin.com/in/jarrud-cochrane-a0320a368" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="https://github.com/jarrudcochrane" target="_blank" rel="noopener">GitHub</a>
-    </div>
-  </aside>
-
-  <main>
-    <section id="about">
-      <p class="section-head">About</p>
-      <p class="lede">I work at the point where <em>clean data</em> meets <em>working software</em>, capturing it, validating it, and building the tools that make sense of it.</p>
-      <p class="body-text" style="margin-top:24px;">
-        I'm in my final year of a Computer and Information Sciences degree, with hands-on experience handling sensitive financial and asset data professionally, and a growing focus on Python-based analysis and applied AI. My background spans structured data work in real organisations and full-stack development across web and mobile, and I'm looking to bring both into a Data and AI internship.
-      </p>
-    </section>
-
-    <section id="experience">
-      <p class="section-head">Experience</p>
-      <div class="timeline">
-        <div class="titem">
-          <p class="when">Jun 2026 to Aug 2026</p>
-          <h3>Junior Data Analyst Intern</h3>
-          <p class="org">UBUNTU Business Advisory & Consulting (PTY) LTD · Hardcat Asset Management System</p>
-          <ul>
-            <li>Supported data management processes within the Hardcat IT Asset Management System, maintaining accurate organisational records.</li>
-            <li>Gained hands-on exposure to structured data handling, reporting and quality control within a business advisory environment.</li>
-          </ul>
-        </div>
-        <div class="titem">
-          <p class="when">Mar 2025 to Aug 2025</p>
-          <h3>Data Assistant</h3>
-          <p class="org">JLS FMS, Durban</p>
-          <ul>
-            <li>Captured, cleaned and validated hospital-related financial datasets in Excel, ensuring accuracy and confidentiality of sensitive records.</li>
-            <li>Communicated with project managers to prepare, clean and validate data ahead of audits and financial reports.</li>
-            <li>Redesigned spreadsheet layouts to improve clarity and review efficiency.</li>
-          </ul>
-        </div>
+        <button class="cert-btn" type="button" id="cert-open"><img src="assets/nexafrica-certificate.png" alt="">View internship certificate</button>
       </div>
-    </section>
-
-    <section id="projects">
-      <p class="section-head">Projects</p>
-
-      <div class="project">
-        <div>
-          <h3>Golf Performance Tracker</h3>
-          <p class="status">Personal project · Public on GitHub</p>
-        </div>
-        <div>
-          <p>A Python analytics tool built on personal round data, applying rolling averages, linear regression trend projection and correlation analysis to identify which factors most affect scoring. Shipped as both a console reporting script and an interactive Streamlit dashboard with live filtering, KPI cards and round-logging.</p>
-          <div class="stack"><span>Python</span><span>Pandas</span><span>Streamlit</span><span>Regression</span></div>
-          <a class="link" href="https://github.com/jarrudcochrane" target="_blank" rel="noopener">View on GitHub →</a>
-        </div>
+    </article>
+    <article class="job">
+      <div class="when">Jun 2026 to Aug 2026</div>
+      <div>
+        <h3>Junior Data Analyst Intern</h3>
+        <p class="org">UBUNTU Business Advisory &amp; Consulting, Hardcat Asset Management System</p>
+        <ul>
+          <li>Cleaned and maintained thousands of asset records across KwaZulu-Natal and nearby provinces so reporting stayed accurate.</li>
+          <li>Worked with the team to find and fix around 30 recurring data entry errors, reducing rework and delays to report sign-off.</li>
+          <li>Helped compile reports from the cleaned data for 4 to 5 departments.</li>
+        </ul>
       </div>
-
-      <div class="project">
-        <div>
-          <h3>Client Fuel & Petrol Delivery Platform</h3>
-          <p class="status">In development, 2026 · Team of 4+</p>
-        </div>
-        <div>
-          <p>Collaborating as a full-stack developer on a client-commissioned, on-demand fuel delivery platform connecting consumers and truck drivers with nearby fuel suppliers. Working directly with the client during requirements and system design to shape functionality and technical architecture.</p>
-          <div class="stack"><span>Full-stack</span><span>Client project</span><span>System design</span></div>
-        </div>
+    </article>
+    <article class="job">
+      <div class="when">Mar 2025 to Aug 2025</div>
+      <div>
+        <h3>Data Assistant</h3>
+        <p class="org">JLS FMS, Durban</p>
+        <ul>
+          <li>Captured, cleaned and validated financial datasets for 20 to 30+ hospital clients, keeping records audit-ready.</li>
+          <li>Redesigned spreadsheet layouts for faster review, cutting managers' pre-audit review time by roughly a third.</li>
+          <li>Worked with project managers to catch around 15 to 20 errors per audit cycle before the auditors did.</li>
+        </ul>
       </div>
+    </article>
+  </div>
+</div></section>
 
-      <div class="project">
-        <div>
-          <h3>Global Logistics Management System</h3>
-          <p class="status">Academic project</p>
-        </div>
-        <div>
-          <p>An ASP.NET Core MVC application for a logistics company to manage clients, contracts and service requests, including live USD-to-ZAR currency conversion. Applied Factory, Strategy and Observer design patterns, covered by 8 NUnit unit tests and an automated GitHub Actions CI pipeline.</p>
-          <div class="stack"><span>ASP.NET Core MVC</span><span>NUnit</span><span>GitHub Actions</span></div>
-        </div>
-      </div>
+<section id="projects"><div class="wrap grid">
+  <h2>Projects</h2>
+  <div>
+    <article class="proj">
+      <h3>Global Logistics Management System</h3>
+      <p class="meta">University project, full-stack</p>
+      <p>An ASP.NET Core MVC app for a logistics company to manage clients, contracts and service requests, with validated PDF uploads and live USD to ZAR conversion. Uses Factory and Strategy patterns, NUnit tests and a GitHub Actions pipeline.</p>
+      <p class="stack">C#, ASP.NET Core MVC, EF Core, SQL Server, NUnit, GitHub Actions</p>
+      <div class="links"><a href="https://github.com/jarrudcochrane/global-logistics-management-system">View on GitHub</a></div>
+    </article>
+    <article class="proj">
+      <h3>Fuel delivery platform</h3>
+      <p class="meta">Client project, team of 4+, in development</p>
+      <p>An on-demand fuel delivery platform for a real client, connecting customers and truck drivers with nearby suppliers. I work with the client on requirements and system design.</p>
+    </article>
+    <article class="proj">
+      <h3>Budget Budz</h3>
+      <p class="meta">Group project, team of 5</p>
+      <p>An offline-first Android budgeting app with a local Room database, Firebase sync and Supabase receipt storage. Includes category budgets, spending graphs and an XP and streak system.</p>
+      <p class="stack">Android, Room, Firebase, Supabase</p>
+    </article>
+    <article class="proj">
+      <h3>Data Quality Pipeline</h3>
+      <p class="meta">Personal project</p>
+      <p>Upload a messy CSV or Excel file and it checks for missing values, duplicates, outliers and format errors. Safe fixes are applied automatically; anything uncertain is flagged for a person to review. Seven detectors, a Streamlit app and 13 pytest tests.</p>
+      <p class="stack">Python, pandas, NumPy, SciPy, RapidFuzz, Streamlit, Plotly, pytest</p>
+      <div class="links"><a href="https://github.com/jarrudcochrane/dq-pipeline">View on GitHub</a></div>
+    </article>
+    <article class="proj">
+      <h3>Golf Performance Tracker</h3>
+      <p class="meta">Personal project</p>
+      <p>Analyses my own golf rounds to find what actually moves my score. It uses rolling averages, a linear trend and correlation analysis, and comes as a console report and a Streamlit dashboard with filters, KPI cards and a form to log new rounds.</p>
+      <p class="stack">Python, pandas, Matplotlib, Seaborn, Streamlit, Plotly</p>
+      <div class="links"><a href="https://github.com/jarrudcochrane/golf-performance-tracker">View on GitHub</a></div>
+    </article>
+  </div>
+</div></section>
 
-      <div class="project">
-        <div>
-          <h3>Budget Budz</h3>
-          <p class="status">Group project · Team of 5</p>
-        </div>
-        <div>
-          <p>An offline-first Android budgeting app with local Room database storage, Firebase Firestore cloud sync and Supabase receipt image storage. Built expense tracking, category budgeting and spending-graph analytics, plus a gamification system (XP, streaks, unlockable content) to drive engagement.</p>
-          <div class="stack"><span>Android</span><span>Room</span><span>Firebase</span><span>Supabase</span></div>
-        </div>
-      </div>
-    </section>
+<section id="skills"><div class="wrap grid">
+  <h2>Skills</h2>
+  <dl class="skills">
+    <dt>Programming</dt><dd>C#, Python, Java, ASP.NET Core MVC, Entity Framework, HTML, CSS, REST APIs, Android</dd>
+    <dt>Data</dt><dd>Python (NumPy, pandas, Matplotlib, Seaborn), R, SQL, Tableau, Excel cleaning and validation, exploratory analysis</dd>
+    <dt>Cloud</dt><dd>Azure App Services, Azure Blob Storage</dd>
+    <dt>AI tools</dt><dd>Generative AI, prompt writing, responsible use</dd>
+    <dt>Tools</dt><dd>Git, GitHub, Visual Studio, VS Code, Android Studio</dd>
+  </dl>
+</div></section>
 
-    <section id="skills">
-      <p class="section-head">Skills</p>
-      <div class="skills-grid">
-        <div class="skill-group">
-          <h3>Data & Analysis</h3>
-          <p>Python (NumPy, Pandas, Matplotlib, Seaborn), R, SQL, SQL Server Management Studio, Tableau, Excel data cleaning & validation, exploratory data analysis.</p>
-        </div>
-        <div class="skill-group">
-          <h3>Programming</h3>
-          <p>Python, C#, Java, ASP.NET MVC, HTML, CSS, REST API integration.</p>
-        </div>
-        <div class="skill-group">
-          <h3>Cloud & Database</h3>
-          <p>Azure App Services, Azure Blob Storage, Azure Portal.</p>
-        </div>
-        <div class="skill-group">
-          <h3>AI Tools</h3>
-          <p>Generative AI tools, prompt engineering, responsible AI use.</p>
-        </div>
-        <div class="skill-group">
-          <h3>Tools</h3>
-          <p>Git, GitHub, Visual Studio, VS Code, Android Studio.</p>
-        </div>
-      </div>
-    </section>
+<section id="education"><div class="wrap grid edu">
+  <h2>Education and certificates</h2>
+  <div>
+    <div class="item"><h3>Bachelor of Computer and Information Sciences</h3><p>Emeris (previously Varsity College), Durban. Application Development, 2024 to 2026 (expected). Golden Key International Honour Society member since 2025.</p></div>
+    <div class="item"><h3>Higher Certificate in Mobile Application and Web Development</h3><p>Emeris, 2023. Top Graduate and first in class.</p></div>
+    <div class="item"><h3>National Senior Certificate</h3><p>St Henry's Marist College, Durban, 2022. Bachelor's Pass.</p></div>
+    <ul class="certs">
+      <li>Data Analysis with Python <span>freeCodeCamp</span></li>
+      <li>Google Data Analytics Professional Certificate <span>Google, Aug 2026</span></li>
+      <li>Google AI Essentials <span>Google, Aug 2026</span></li>
+      <li>Google Project Management Professional Certificate <span>Google, Aug 2026</span></li>
+      <li>AZ-900 exam prep <span>Microsoft, Aug 2026</span></li>
+      <li>SC-900 exam prep <span>Whizlabs, Aug 2026</span></li>
+    </ul>
+  </div>
+</div></section>
 
-    <section id="education">
-      <p class="section-head">Education</p>
-      <div class="timeline">
-        <div class="titem">
-          <p class="when">2024 to 2026 (expected)</p>
-          <h3>Bachelor of Computer and Information Sciences</h3>
-          <p class="org">Emeris (previously Varsity College), Durban · Application Development</p>
-          <ul>
-            <li>Invited, Golden Key International Honour Society (2025 to present), awarded to top-performing students.</li>
-            <li>Latest Year 3 results: Programming 3A 96%, Introduction to Research for ICT 93%, Programming 3C 93%, Information Systems 3A 90% (all Pass with Distinction).</li>
-          </ul>
-        </div>
-        <div class="titem">
-          <p class="when">Jan to Dec 2023</p>
-          <h3>Higher Certificate in Mobile Application and Web Development</h3>
-          <p class="org">Emeris (previously Varsity College), Top Graduate 2023, First in Class</p>
-        </div>
-        <div class="titem">
-          <p class="when">Dec 2022</p>
-          <h3>National Senior Certificate</h3>
-          <p class="org">St Henry's Marist College, Durban, Bachelor's Pass</p>
-        </div>
-      </div>
-    </section>
+<section id="contact" class="contact"><div class="wrap">
+  <h2>Let's talk.</h2>
+  <p>If you have a developer internship or entry-level role, I'd like to hear about it.</p>
+  <div class="rows">
+    <a class="btn primary" href="mailto:jarrudcochrane03@gmail.com">Email me</a>
+    <a class="btn" href="https://www.linkedin.com/in/jarrud-cochrane-a0320a368">LinkedIn</a>
+    <a class="btn" href="https://github.com/jarrudcochrane">GitHub</a>
+  </div>
+</div></section>
+</main>
+<footer><div class="wrap">Jarrud Cochrane, Durban, South Africa</div></footer>
 
-    <section id="certifications">
-      <p class="section-head">Certifications</p>
-
-      <div class="cert">
-        <div>
-          <h3>Data Analysis with Python</h3>
-          <p class="org issuer">freeCodeCamp</p>
-          <p>Five projects applying NumPy, Pandas, Matplotlib and Seaborn to clean, analyse and visualise real-world datasets across CSV/SQL sources.</p>
-        </div>
-        <p class="when">Aug 2026</p>
-      </div>
-
-      <div class="cert">
-        <div>
-          <h3>Google Data Analytics Professional Certificate</h3>
-          <p class="org issuer">Google</p>
-          <p>Eight-course programme covering data cleaning, analysis and visualisation with spreadsheets, SQL, R and Tableau.</p>
-        </div>
-        <p class="when">Aug 2026</p>
-      </div>
-
-      <div class="cert">
-        <div>
-          <h3>Google AI Essentials Specialization</h3>
-          <p class="org issuer">Google</p>
-          <p>Practical use of generative AI tools, prompt writing, and responsible AI use.</p>
-        </div>
-        <p class="when">Aug 2026</p>
-      </div>
-
-      <div class="cert">
-        <div>
-          <h3>Microsoft Azure Fundamentals (AZ-900) Exam Prep</h3>
-          <p class="org issuer">Microsoft</p>
-          <p>Core cloud concepts and Azure services: compute, storage, networking and security.</p>
-        </div>
-        <p class="when">Aug 2026</p>
-      </div>
-
-      <div class="cert">
-        <div>
-          <h3>SC-900: Security, Compliance & Identity Fundamentals</h3>
-          <p class="org issuer">Whizlabs</p>
-          <p>Microsoft security, compliance and identity fundamentals: access management, Zero Trust and threat protection.</p>
-        </div>
-        <p class="when">Aug 2026</p>
-      </div>
-
-      <div class="cert">
-        <div>
-          <h3>Google Project Management Professional Certificate</h3>
-          <p class="org issuer">Google</p>
-          <p>Project planning, Agile methodologies, budgeting and stakeholder communication.</p>
-        </div>
-        <p class="when">Aug 2026</p>
-      </div>
-    </section>
-  </main>
-</div>
-
-<footer>
-  Durban, South Africa | jarrudcochrane03@gmail.com | 060 601 7461
-</footer>
+<dialog id="cert"><img src="assets/nexafrica-certificate.png" alt="NexAfrica certificate of internship completion for Jarrud Cochrane, Data Analysis internship, 6 September 2026 to 12 October 2026"><form method="dialog"><button>Close</button></form></dialog>
 
 <script>
-  // Highlight active nav section on scroll
-  const sections = document.querySelectorAll('main section');
-  const navLinks = document.querySelectorAll('nav a');
-  const setActive = () => {
-    let current = sections[0].id;
-    sections.forEach(sec => {
-      if (window.scrollY >= sec.offsetTop - 120) current = sec.id;
-    });
-    navLinks.forEach(link => {
-      link.classList.toggle('active', link.getAttribute('href') === '#' + current);
-    });
-  };
-  window.addEventListener('scroll', setActive, { passive: true });
-  setActive();
+(function(){
+  var cells=[].slice.call(document.querySelectorAll('td[data-d]')),
+      note=document.getElementById('note'),btn=document.getElementById('run'),
+      reduce=matchMedia('(prefers-reduced-motion: reduce)').matches,done=false,timers=[];
+  function dirty(){cells.forEach(function(c){c.textContent=c.dataset.d;c.className='';});
+    document.querySelectorAll('tr.dup').forEach(function(r){r.classList.remove('gone')});
+    note.textContent='Four rows, four different problems.';btn.textContent='Clean it';done=false;}
+  function fix(c){var t=c.dataset.c;if(c.dataset.d===t)return;
+    c.textContent=t;c.className=c.dataset.flag?'flag':'fixed';}
+  function clean(){timers.forEach(clearTimeout);timers=[];
+    var delay=reduce?0:140;
+    cells.forEach(function(c,i){timers.push(setTimeout(function(){fix(c)},i*delay));});
+    timers.push(setTimeout(function(){
+      document.querySelector('tr.dup').classList.add('gone');
+      note.textContent='Spacing, case, a typo and three date and amount formats fixed. One duplicate removed. One missing amount flagged for a person to check.';
+      btn.textContent='Reset';done=true;},cells.length*delay+(reduce?0:200)));}
+  btn.addEventListener('click',function(){timers.forEach(clearTimeout);done?dirty():clean();});
+  dirty();
+  setTimeout(function(){if(!done)clean();},reduce?0:1200);
+  var d=document.getElementById('cert');
+  document.getElementById('cert-open').addEventListener('click',function(){d.showModal()});
+  d.addEventListener('click',function(e){if(e.target===d)d.close()});
+})();
 </script>
-
 </body>
 </html>
